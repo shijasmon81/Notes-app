@@ -4,17 +4,20 @@ import { logout } from "../redux/slices/authSlice";
 import Modal from "./Modal";
 import SignIn from "../pages/signin";
 import SignUp from "../pages/signup";
+import { color } from "framer-motion";
 
 export default function Navbar() {
   const dispatch = useDispatch();
-  const { token, user_name } = useSelector((state) => state.auth); // ✅ keep it consistent with slice
+  const { token, user_name } = useSelector((state) => state.auth);
 
   const [showSignIn, setShowSignIn] = useState(false);
   const [showSignUp, setShowSignUp] = useState(false);
   const [showLogoutMsg, setShowLogoutMsg] = useState(false);
+  const [dropdownOpen, setDropdownOpen] = useState(false);
 
   const handleLogout = () => {
     dispatch(logout());
+    setDropdownOpen(false);
     setShowLogoutMsg(true);
     setTimeout(() => setShowLogoutMsg(false), 2000);
   };
@@ -31,12 +34,21 @@ export default function Navbar() {
       )}
 
       {token && (
-        <>
-          <span style={{ marginRight: "10px", fontWeight: "bold" }}>
-            {user_name || "User"} 
-          </span>
-          <button style={buttonStyle} onClick={handleLogout}>Logout</button>
-        </>
+        <div style={{ position: "relative", display: "flex", alignItems: "center" }}>
+          <div
+            style={avatarStyle}
+            onClick={() => setDropdownOpen(!dropdownOpen)}
+          >
+            {user_name?.[0]?.toUpperCase()}
+          </div>
+          <span style={{ margin: "0 10px", fontWeight: "bold" }}>{user_name}</span>
+
+          {dropdownOpen && (
+            <div style={dropdownStyle}>
+              <button style={dropdownBtnStyle} onClick={handleLogout}>Logout</button>
+            </div>
+          )}
+        </div>
       )}
 
       {/* Logout message */}
@@ -75,6 +87,41 @@ const buttonStyle = {
   borderRadius: "5px",
   backgroundColor: "white",
   color: "#4f46e5",
+  cursor: "pointer",
+  fontWeight: "bold",
+};
+
+const avatarStyle = {
+  width: "32px",
+  height: "32px",
+  borderRadius: "50%",
+  backgroundColor: "#fff",
+  color: "#4f46e5",
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+  fontWeight: "bold",
+  cursor: "pointer",
+};
+
+const dropdownStyle = {
+  position: "absolute",
+  top: "40px",
+  right: "0",
+  backgroundColor: "white",
+  color: "#4f46e5",
+  borderRadius: "8px",
+  boxShadow: "0px 4px 8px rgba(0,0,0,0.2)",
+  zIndex: 100,
+};
+
+const dropdownBtnStyle = {
+  padding: "8px 12px",
+  width: "100%",
+  border: "none",
+  background: "transparent",
+  color: "#4f46e5",
+  textAlign: "left",
   cursor: "pointer",
   fontWeight: "bold",
 };
