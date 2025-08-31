@@ -11,13 +11,12 @@ import { motion } from "framer-motion";
 export default function Home() {
   const dispatch = useDispatch();
   const { notes, loading } = useSelector(state => state.notes);
-  const { token } = useSelector(state => state.auth); // ✅ get token
+  const { token } = useSelector(state => state.auth); 
   const [editingNote, setEditingNote] = useState(null);
 
-  // Fetch notes when component mounts OR token changes
   useEffect(() => {
     if (token) dispatch(fetchNotes());
-  }, [dispatch, token]); // ✅ dependency includes token
+  }, [dispatch, token]); 
 
   const handleSave = (noteData) => {
     if (editingNote) {

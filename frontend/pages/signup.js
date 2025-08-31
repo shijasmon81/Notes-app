@@ -13,7 +13,7 @@ export default function SignUp({ onClose }) {
   const [successMessage, setSuccessMessage] = useState("");
 
   const handleSignup = () => {
-    if (!name || !email || !password) return; // simple validation
+    if (!name || !email || !password) return; 
     dispatch(signupUser({ user_name: name, user_email: email, password }));
   };
 

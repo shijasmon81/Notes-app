@@ -28,7 +28,7 @@ export default function Modal({ children, isOpen, onClose }) {
           minWidth: "300px",
           position: "relative",
         }}
-        onClick={(e) => e.stopPropagation()} // prevent closing on inner click
+        onClick={(e) => e.stopPropagation()} 
       >
         <button 
           onClick={onClose} 
