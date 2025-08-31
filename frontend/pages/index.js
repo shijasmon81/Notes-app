@@ -41,7 +41,7 @@ export default function Home() {
 
   return (
     <div className="container">
-      <SEO title="My Notes App - Home" description="View, create, edit and delete your notes easily." keywords="notes, productivity, todo, tasks"/>
+      <SEO title="Notes App - Home" description="View, create, edit and delete your notes easily." keywords="notes, productivity, todo, tasks"/>
       <Navbar />
       {loading && <Loader />}
       <NoteEditor note={editingNote} onSave={handleSave} />
@@ -97,7 +97,7 @@ const buttonStyle = {
   marginRight: "5px",
   border: "none",
   borderRadius: "5px",
-  backgroundColor: "#4f46e5",
+  backgroundColor: "#3e7fe7ff",
   color: "white",
   cursor: "pointer",
 };
