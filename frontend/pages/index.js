@@ -31,6 +31,14 @@ export default function Home() {
   const handleEdit = (note) => setEditingNote(note);
   const handleDelete = (id) => dispatch(deleteNote(id));
 
+  function parseDate(date) {
+  console.log("function parseDate called with:", date);
+  if (!date) return "N/A";
+  const d = new Date(date);
+  return isNaN(d.getTime()) ? "Invalid Date" : d.toLocaleDateString();
+  };
+
+
   return (
     <div className="container">
       <SEO title="My Notes App - Home" description="View, create, edit and delete your notes easily." keywords="notes, productivity, todo, tasks"/>
@@ -54,7 +62,7 @@ export default function Home() {
               <h3>{note.note_title}</h3>
               <div dangerouslySetInnerHTML={{ __html: note.note_content }} />
               <small style={{ display: "block", marginTop: "10px", color: "#555" }}>
-                Created: {new Date(note.created_on).toLocaleDateString()} | Updated: {new Date(note.last_update).toLocaleDateString()}
+                Created: {parseDate(note.created_on)} | Updated: {parseDate(note.last_update)}
               </small>
               <div style={{ marginTop: "10px" }}>
                 <button style={buttonStyle} onClick={() => handleEdit(note)}>Edit</button>
